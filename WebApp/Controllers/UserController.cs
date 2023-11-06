@@ -54,22 +54,15 @@ public class UserController : Controller
         return RedirectToAction("List");
     }
 
-    // GET: User/Login
-    public IActionResult Login() 
-    {
-        return View();
-    }
-
     // POST: User/Login/{login}
     [HttpPost]
     public IActionResult Login(string login)
     {
-        if (!UserStore.Instance.HasUser(login))
+        if (UserStore.Instance.HasUser(login))
         {
-            ViewData["error"] = "User does not exist";
-            return View();
+            _session.CurrentUser = UserStore.Instance.GetUserByLogin(login);
+            return RedirectToAction("Index", "Friends");
         }
-        _session.CurrentUser = UserStore.Instance.GetUserByLogin(login);
         return RedirectToAction("Index", "Home");
     }
 

@@ -1,14 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Services;
 
 namespace WebApp.Controllers
 {
     public class FriendsController : Controller
     {
+        private readonly SessionService _session;
+
+        public FriendsController(SessionService session)
+        {
+            _session = session;
+        }
+
         // GET: Friends
         public ActionResult Index()
         {
-            return View();
+            var user = _session.CurrentUser;
+            if (user == null)
+                return RedirectToAction("Index", "Home");
+            return View(user.Friends);
         }
 
         // GET: Friends/Details/5
