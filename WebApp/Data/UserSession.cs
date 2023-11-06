@@ -25,4 +25,6 @@ public class UserSession
             _httpContextAccessor.HttpContext!.Session.SetString("login", value == null ? "" : value.Login);
         }
     }
+
+    public bool IsAdmin => CurrentUser != null && "admin".Equals(CurrentUser.Login);
 }

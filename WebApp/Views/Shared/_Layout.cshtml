@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using WebApp.Data
+@inject UserSession session
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,19 +28,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="List">Users</a>
-                        </li>
+                        @if (session.IsAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="List">Users</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav flex-grow-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <form class="nav-link text-dark" method="post" asp-area="" asp-controller="User" asp-action="Logout">
-                                <button class="border-0 bg-light" type="submit">Logout</button>
-                            </form>
-                        </li>
+                        @if (session.CurrentUser == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <form class="nav-link text-dark" method="post" asp-area="" asp-controller="User" asp-action="Logout">
+                                    <button style="background: none; border: none" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
