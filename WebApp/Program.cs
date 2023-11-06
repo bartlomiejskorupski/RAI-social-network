@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
+using WebApp.Services;
 
 namespace WebApp;
 
@@ -30,7 +31,7 @@ public class Program
              options.MinimumSameSitePolicy = SameSiteMode.None;
          });
 
-        builder.Services.AddScoped<UserSession>();
+        builder.Services.AddScoped<SessionService>();
         builder.Services.AddHttpContextAccessor();
 
         var app = builder.Build();

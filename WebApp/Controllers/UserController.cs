@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Data;
 using WebApp.Models;
+using WebApp.Services;
+using WebApp.Stores;
 
 namespace WebApp.Controllers;
 
 public class UserController : Controller
 {
-    private readonly UserSession _session;
+    private readonly SessionService _session;
 
-    public UserController(UserSession session)
+    public UserController(SessionService session)
     {
         _session = session;
     }
@@ -64,7 +65,10 @@ public class UserController : Controller
     public IActionResult Login(string login)
     {
         if (!UserStore.Instance.HasUser(login))
-            return RedirectToAction("Login");
+        {
+            ViewData["error"] = "User does not exist";
+            return View();
+        }
         _session.CurrentUser = UserStore.Instance.GetUserByLogin(login);
         return RedirectToAction("Index", "Home");
     }

@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
-using WebApp.Data;
 using WebApp.Models;
+using WebApp.Services;
 
 namespace WebApp.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly UserSession _session;
+    private readonly SessionService _session;
 
     public HomeController(
         ILogger<HomeController> logger,
-        UserSession session
+        SessionService session
     ) {
         _logger = logger;
         _session = session;

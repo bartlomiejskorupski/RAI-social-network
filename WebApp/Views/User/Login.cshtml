@@ -3,6 +3,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        @if (ViewData["error"] != null)
+        {
+            <small style="color: red">@(ViewData["error"])</small>
+        }
         <form asp-action="Login" method="post">
             <div class="form-group">
                 <label for="login" class="control-label"></label>

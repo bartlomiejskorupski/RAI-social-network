@@ -1,6 +1,6 @@
 ﻿using WebApp.Models;
 
-namespace WebApp.Data;
+namespace WebApp.Stores;
 
 public class UserStore
 {
@@ -22,7 +22,7 @@ public class UserStore
         _users = InitUsers();
     }
 
-    public User? GetUserByLogin(string login) 
+    public User? GetUserByLogin(string login)
     {
         return Users.Where(u => u.Login == login).FirstOrDefault();
     }
@@ -40,7 +40,7 @@ public class UserStore
     public void RemoveUserByLogin(string login)
     {
         var user = GetUserByLogin(login);
-        if(user != null)
+        if (user != null)
         {
             Users.Remove(user);
         }

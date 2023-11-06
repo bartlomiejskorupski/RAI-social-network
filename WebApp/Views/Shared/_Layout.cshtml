@@ -1,5 +1,5 @@
-﻿@using WebApp.Data
-@inject UserSession session
+﻿@using WebApp.Services
+@inject SessionService session
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +44,7 @@
                         }
                         else
                         {
+                            <span class="navbar-text">@session.CurrentUser.Login</span>
                             <li class="nav-item">
                                 <form class="nav-link text-dark" method="post" asp-area="" asp-controller="User" asp-action="Logout">
                                     <button style="background: none; border: none" type="submit">Logout</button>

@@ -1,12 +1,13 @@
 ﻿using WebApp.Models;
+using WebApp.Stores;
 
-namespace WebApp.Data;
+namespace WebApp.Services;
 
-public class UserSession
+public class SessionService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UserSession(IHttpContextAccessor httpContextAccessor)
+    public SessionService(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
