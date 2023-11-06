@@ -1,0 +1,25 @@
+﻿
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    @if (ViewData["error"] != null)
+    {
+        <small style="color: red">@(ViewData["error"])</small>
+    }
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div class="form-group">
+                <label for="login" class="control-label"></label>
+                <input name="login" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">Back to List</a>
+</div>

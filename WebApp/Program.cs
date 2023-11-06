@@ -10,18 +10,28 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        //  Add services to the container.
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
+        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddControllersWithViews();
- 
-        builder.Services.AddSession();
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession(options => {
+            options.IdleTimeout = TimeSpan.FromMinutes(10);
+            options.Cookie.HttpOnly = true;
+        });
+        
+        builder.Services.Configure<CookiePolicyOptions>(
+         options => {
+             options.CheckConsentNeeded = context => false;
+             options.MinimumSameSitePolicy = SameSiteMode.None;
+         });
 
+        builder.Services.AddScoped<UserSession>();
+        builder.Services.AddHttpContextAccessor();
 
         var app = builder.Build();
 
@@ -42,13 +52,15 @@ public class Program
 
         app.UseRouting();
 
-        app.UseAuthentication();
+        //app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
         app.MapRazorPages();
+
+        app.UseSession();
 
         app.Run();
     }
