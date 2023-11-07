@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
 using WebApp.Services;
+using WebApp.Stores;
 
 namespace WebApp.Controllers
 {
@@ -16,79 +17,43 @@ namespace WebApp.Controllers
         // GET: Friends
         public ActionResult Index()
         {
+            return View();
+        }
+
+        // GET: Friends/List
+        public ActionResult List()
+        {
             var user = _session.CurrentUser;
             if (user == null)
                 return RedirectToAction("Index", "Home");
-            return View(user.Friends);
+            return Json(user.Friends);
         }
 
-        // GET: Friends/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Friends/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Friends/Create
+        // POST: Friends/Add/{login}
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Add(string login)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var user = _session.CurrentUser;
+
+            if (user == null || string.IsNullOrEmpty(login.Trim()))
+                return Json(false);
+
+            var friend = UserStore.Instance.GetUserByLogin(login);
+            if (friend == null)
+                return Json(false);
+
+            if (user.Friends.Contains(friend) || friend == user)
+                return Json(false);
+
+            user.Friends.Add(friend);
+            return Json(true);
         }
 
-        // GET: Friends/Edit/5
-        public ActionResult Edit(int id)
+        // POST: Friends/Del/{login}
+        [HttpDelete]
+        public ActionResult Del(string login)
         {
-            return View();
-        }
-
-        // POST: Friends/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Friends/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Friends/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Json(false);
         }
     }
 }

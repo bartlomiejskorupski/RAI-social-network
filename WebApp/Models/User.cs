@@ -1,8 +1,11 @@
-﻿namespace WebApp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace WebApp.Models;
 
 public class User
 {
     public string Login { get; set; }
+    [JsonIgnore]
     public List<User> Friends { get; set; }
     public DateTime Created { get; set; }
     public User()

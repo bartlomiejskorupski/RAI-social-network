@@ -1,35 +1,29 @@
-﻿@model IEnumerable<WebApp.Models.User>
+﻿
+<h5 class="mb-0">Add Friend</h5>
+<div class="row">
+    <div class="col-4">
+        <form class="">
+            <div class="form-group">
+                <label for="login" class="control-label"></label>
+                <input id="loginInput" name="login" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <button id="addFriendButton" class="btn btn-primary" type="button">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h4 class="mt-4">Friend List</h4>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Login)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
+            <th>Login</th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Login)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+    <tbody id="userTableBody">
     </tbody>
 </table>
+
+<script src="js/friends.js"></script>
