@@ -58,16 +58,16 @@ public class UserStore
             new User("seba", new DateTime(2023, 11, 5, 9, 1, 44)),
         };
 
-        users[1].Friends.Add(users[2]);
-        users[1].Friends.Add(users[3]);
-        users[1].Friends.Add(users[6]);
-        users[2].Friends.Add(users[1]);
-        users[3].Friends.Add(users[1]);
-        users[3].Friends.Add(users[6]);
-        users[4].Friends.Add(users[5]);
-        users[5].Friends.Add(users[4]);
-        users[6].Friends.Add(users[1]);
-        users[6].Friends.Add(users[3]);
+        users[1].Friends.Add(users[2].Login);
+        users[1].Friends.Add(users[3].Login);
+        users[1].Friends.Add(users[6].Login);
+        users[2].Friends.Add(users[1].Login);
+        users[3].Friends.Add(users[1].Login);
+        users[3].Friends.Add(users[6].Login);
+        users[4].Friends.Add(users[5].Login);
+        users[5].Friends.Add(users[4].Login);
+        users[6].Friends.Add(users[1].Login);
+        users[6].Friends.Add(users[3].Login);
         return users;
     }
 }

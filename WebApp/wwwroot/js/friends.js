@@ -38,7 +38,7 @@ async function createFriendList() {
     }
 
     for (const friend of friendList) {
-        var friendRow = createFriendTableRow(friend.login);
+        var friendRow = createFriendTableRow(friend);
         tbody.appendChild(friendRow);
     }
 }
@@ -61,7 +61,9 @@ function createFriendTableRow(login) {
 
 function deleteFriend(login) {
     return async (e) => {
-        const res = await fetch(`/Friends/Del/${login}`, { method: 'DELETE' });
+        const res = await fetch(`/Friends/Del?login=${login}`, {
+            method: 'DELETE'
+        });
         const success = await res.json();
 
         if (!success) {
@@ -70,7 +72,6 @@ function deleteFriend(login) {
         }
 
         const row = e.target?.parentElement?.parentElement;
-        console.log(row);
         row?.remove();
     };
 }
