@@ -16,7 +16,7 @@ addFriendButton.addEventListener('click', async function () {
         body: formData
     });
     const success = await res.json();
-    console.log(`Success: ${success}`);
+    console.log('Success:', success);
 
     if (success) {
         createFriendList();
@@ -26,6 +26,7 @@ addFriendButton.addEventListener('click', async function () {
 async function createFriendList() {
     const res = await fetch('/Friends/List', { method: 'GET' });
     const friendList = await res.json();
+    console.log('Friendlist:', friendList);
 
     const tbody = document.querySelector('#userTableBody');
     tbody.innerHTML = '';
