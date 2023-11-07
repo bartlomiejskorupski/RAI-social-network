@@ -23,25 +23,26 @@ namespace WebApp.Controllers
         // GET: Friends/List
         public ActionResult List()
         {
-            var user = _session.CurrentUser;
-            if (user == null)
+            if (!_session.IsLoggedIn)
                 return RedirectToAction("Index", "Home");
-            return Json(user.Friends);
+            return Json(_session.CurrentUser!.Friends);
         }
 
         // POST: Friends/Add/{login}
         [HttpPost]
         public ActionResult Add(string login)
         {
-            var user = _session.CurrentUser;
+            if (!_session.IsLoggedIn)
+                return Json(false);
 
-            if (user == null || string.IsNullOrEmpty(login.Trim()))
+            if (string.IsNullOrEmpty(login.Trim()))
                 return Json(false);
 
             var friend = UserStore.Instance.GetUserByLogin(login);
             if (friend == null)
                 return Json(false);
 
+            var user = _session.CurrentUser!;
             if (user.Friends.Contains(friend) || friend == user)
                 return Json(false);
 
@@ -49,11 +50,23 @@ namespace WebApp.Controllers
             return Json(true);
         }
 
-        // POST: Friends/Del/{login}
+        // DELETE: Friends/Del/{login}
         [HttpDelete]
         public ActionResult Del(string login)
         {
-            return Json(false);
+            if(!_session.IsLoggedIn) 
+                return Json(false);
+
+            var friend = UserStore.Instance.GetUserByLogin(login);
+            if (friend == null)
+                return Json(false);
+
+            var user = _session.CurrentUser!;
+            if(!user.Friends.Contains(friend))
+                return Json(false);
+
+            user.Friends.Remove(friend);
+            return Json(true);
         }
     }
 }

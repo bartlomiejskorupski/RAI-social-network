@@ -31,7 +31,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="List">Users</a>
                             </li>
                         }
-                        @if (session.CurrentUser != null)
+                        @if (session.IsLoggedIn)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Friends" asp-action="Index">Friends</a>
@@ -42,10 +42,10 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-0">
-                        @if (session.CurrentUser == null)
+                        @if (!session.IsLoggedIn)
                         {
                             <li class="nav-item">
-                                <form class="nav-link text-dark" method="post" asp-area="" asp-controller="User" asp-action="Login">
+                                <form class="nav-link text-dark" method="post" asp-area="" asp-controller="Login" asp-action="Index">
                                     <input name="login" placeholder="Enter your login..." required/>
                                     <button style="background: none; border: none" type="submit">Login</button>
                                 </form>
@@ -53,9 +53,9 @@
                         }
                         else
                         {
-                            <li class="navbar-text">@session.CurrentUser.Login</li>
+                            <li class="navbar-text">@session.CurrentUser!.Login</li>
                             <li class="nav-item">
-                                <form class="nav-link text-dark" method="post" asp-area="" asp-controller="User" asp-action="Logout">
+                                <form class="nav-link text-dark" method="post" asp-area="" asp-controller="Login" asp-action="Logout">
                                     <button style="background: none; border: none" type="submit">Logout</button>
                                 </form>
                             </li>

@@ -27,5 +27,7 @@ public class SessionService
         }
     }
 
+    public bool IsLoggedIn => CurrentUser != null;
+
     public bool IsAdmin => CurrentUser != null && "admin".Equals(CurrentUser.Login);
 }

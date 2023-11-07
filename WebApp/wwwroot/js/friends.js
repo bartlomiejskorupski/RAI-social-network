@@ -48,11 +48,29 @@ function createFriendTableRow(login) {
     const loginCell = document.createElement('td');
     loginCell.innerHTML = login;
     const actionsCell = document.createElement('td');
-    const deleteLink = document.createElement('a');
-    deleteLink.href = `/Friends/Del?login=${login}`;
-    deleteLink.innerHTML = 'Delete';
-    actionsCell.appendChild(deleteLink);
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = 'Delete';
+    deleteBtn.classList.add('btn');
+    deleteBtn.classList.add('btn-danger');
+    deleteBtn.addEventListener('click', deleteFriend(login));
+    actionsCell.appendChild(deleteBtn);
     row.appendChild(loginCell);
     row.appendChild(actionsCell);
     return row;
+}
+
+function deleteFriend(login) {
+    return async (e) => {
+        const res = await fetch(`/Friends/Del/${login}`, { method: 'DELETE' });
+        const success = await res.json();
+
+        if (!success) {
+            console.log('Failed to delete');
+            return;
+        }
+
+        const row = e.target?.parentElement?.parentElement;
+        console.log(row);
+        row?.remove();
+    };
 }

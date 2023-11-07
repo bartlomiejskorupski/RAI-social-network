@@ -17,7 +17,7 @@ public class UserController : Controller
     // GET: User/List
     public IActionResult List()
     {
-        if(_session.CurrentUser == null || _session.CurrentUser.Login != "admin")
+        if(!_session.IsAdmin)
             return RedirectToAction("Index", "Home");
         return View(UserStore.Instance.Users);
     }
@@ -25,6 +25,8 @@ public class UserController : Controller
     // GET: User/Add
     public IActionResult Add()
     {
+        if (!_session.IsAdmin)
+            return RedirectToAction("Index", "Home");
         return View();
     }
 
@@ -32,6 +34,9 @@ public class UserController : Controller
     [HttpPost]
     public IActionResult Add(string login)
     {
+        if (!_session.IsAdmin)
+            return RedirectToAction("Index", "Home");
+
         if (string.IsNullOrEmpty(login))
         {
             ViewData["error"] = "Incorrect login";
@@ -50,28 +55,11 @@ public class UserController : Controller
     // GET: User/Del/{login}
     public IActionResult Del(string login)
     {
+        if (!_session.IsAdmin)
+            return RedirectToAction("Index", "Home");
+
         UserStore.Instance.RemoveUserByLogin(login);
         return RedirectToAction("List");
-    }
-
-    // POST: User/Login/{login}
-    [HttpPost]
-    public IActionResult Login(string login)
-    {
-        if (UserStore.Instance.HasUser(login))
-        {
-            _session.CurrentUser = UserStore.Instance.GetUserByLogin(login);
-            return RedirectToAction("Index", "Friends");
-        }
-        return RedirectToAction("Index", "Home");
-    }
-
-    // POST: User/Logout
-    [HttpPost]
-    public IActionResult Logout()
-    {
-        _session.CurrentUser = null;
-        return RedirectToAction("Index", "Home");
     }
 
 }
