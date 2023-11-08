@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<WebApp.Models.User>
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["USERS"];
+}
+
 <p>
-    <a asp-action="Add">Add user</a>
+    <a asp-action="Add">@Localizer["ADD_USER"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Login)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
+            <th>@Localizer["LOGIN"]</th>
+            <th>@Localizer["CREATED"]</th>
             <th></th>
         </tr>
     </thead>
@@ -25,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Del", new { login=item.Login })
+                @Html.ActionLink(Localizer["DELETE"].Value, "Del", new { login = item.Login })
             </td>
         </tr>
 }

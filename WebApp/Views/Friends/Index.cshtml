@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
+@{
+    ViewData["Title"] = Localizer["FRIENDS"];
+}
 
 <h5 class="mb-0">@Localizer["ADD_FRIEND"]</h5>
 <div class="row">

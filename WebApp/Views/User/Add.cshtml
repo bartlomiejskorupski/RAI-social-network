@@ -1,11 +1,16 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
-<h4>Add User</h4>
+@{
+    ViewData["Title"] = Localizer["USERS"];
+}
+
+<h4>@Localizer["ADD_USER"]</h4>
 <hr />
 <div class="row">
     @if (ViewData["error"] != null)
     {
-        <small style="color: red">@(ViewData["error"])</small>
+       // <small style="color: red">@(ViewData["error"])</small>
     }
     <div class="col-md-4">
         <form asp-action="Add" method="post">
@@ -14,12 +19,12 @@
                 <input name="login" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Add" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["ADD"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="List">Back to List</a>
+    <a asp-action="List">@Localizer["BACK"]</a>
 </div>

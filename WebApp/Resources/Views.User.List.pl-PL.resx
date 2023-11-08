@@ -117,37 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ACTIONS" xml:space="preserve">
-    <value>Akcje</value>
+  <data name="ADD_USER" xml:space="preserve">
+    <value>Dodaj Użytkownika</value>
   </data>
-  <data name="ADD" xml:space="preserve">
-    <value>Dodaj</value>
-  </data>
-  <data name="ADD_FRIEND" xml:space="preserve">
-    <value>Dodaj Znajomego</value>
+  <data name="CREATED" xml:space="preserve">
+    <value>Data Utworzenia</value>
   </data>
   <data name="DELETE" xml:space="preserve">
     <value>Usuń</value>
   </data>
-  <data name="EXPORT" xml:space="preserve">
-    <value>Eksportuj</value>
-  </data>
-  <data name="EXPORT_FRIENDS_LIST" xml:space="preserve">
-    <value>Eksportuj Listę Znajomych</value>
-  </data>
-  <data name="FRIENDS_LIST" xml:space="preserve">
-    <value>Lista Znajomych</value>
-  </data>
-  <data name="IMPORT" xml:space="preserve">
-    <value>Importuj</value>
-  </data>
-  <data name="IMPORT_FRIENDS_LIST" xml:space="preserve">
-    <value>Importuj Listę Znajomych</value>
-  </data>
   <data name="LOGIN" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="SELECT_FILE" xml:space="preserve">
-    <value>Wybierz Plik...</value>
+  <data name="USERS" xml:space="preserve">
+    <value>Użytkownicy</value>
   </data>
 </root>

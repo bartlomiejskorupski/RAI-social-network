@@ -135,6 +135,9 @@
   <data name="EXPORT_FRIENDS_LIST" xml:space="preserve">
     <value>Export Friends List</value>
   </data>
+  <data name="FRIENDS" xml:space="preserve">
+    <value>Friends</value>
+  </data>
   <data name="FRIENDS_LIST" xml:space="preserve">
     <value>Friends List</value>
   </data>

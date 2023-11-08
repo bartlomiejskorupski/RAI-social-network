@@ -1,8 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["HOME_PAGE"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome@(ViewBag.Login != null ? $", {ViewBag.Login}!" : "")</h1>
-    <p>This is a social network.</p>
+    <h1 class="display-4">@(Localizer["WELCOME"])@(ViewBag.Login != null ? $", {ViewBag.Login}!" : "")</h1>
+    <p>@Localizer["WELCOME_TEXT"]</p>
 </div>

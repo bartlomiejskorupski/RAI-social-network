@@ -20,7 +20,13 @@ public class Program
 
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
-        builder.Services.AddControllersWithViews();
+
+        builder.Services.AddControllersWithViews()
+            .AddDataAnnotationsLocalization()
+            .AddViewLocalization();
+
+        builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
         builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession(options => {
             options.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -35,11 +41,6 @@ public class Program
 
         builder.Services.AddScoped<SessionService>();
         builder.Services.AddHttpContextAccessor();
-
-        builder.Services.AddLocalization();
-        builder.Services.AddMvc()
-            .AddDataAnnotationsLocalization()
-            .AddViewLocalization(options => options.ResourcesPath = "Resources");
 
         var app = builder.Build();
 
@@ -70,10 +71,10 @@ public class Program
 
         app.UseSession();
 
-        var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("pl"), new CultureInfo("en-US"), new CultureInfo("en") };
+        var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en-US")};
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
-            DefaultRequestCulture = new RequestCulture("pl"),
+            DefaultRequestCulture = new RequestCulture("en-US"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures
         });
