@@ -49,7 +49,8 @@ function createFriendTableRow(login) {
     loginCell.innerHTML = login;
     const actionsCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
-    deleteBtn.innerHTML = 'Delete';
+    const delBtnTemplate = document.querySelector('#deleteBtnTemplate');
+    deleteBtn.innerHTML = delBtnTemplate.textContent;
     deleteBtn.classList.add('btn');
     deleteBtn.classList.add('btn-danger');
     deleteBtn.addEventListener('click', deleteFriend(login));

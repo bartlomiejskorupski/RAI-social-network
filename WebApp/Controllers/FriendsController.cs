@@ -19,6 +19,8 @@ namespace WebApp.Controllers
         // GET: Friends
         public ActionResult Index()
         {
+            if(!_session.IsLoggedIn)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 

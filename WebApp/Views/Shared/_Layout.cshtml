@@ -1,12 +1,15 @@
 ﻿@using WebApp.Services
 @inject SessionService session
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Social Network</title>
+    <title>@ViewData["Title"] - @Localizer["SOCIAL_NETWORK"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />
@@ -15,7 +18,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Social Network</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["SOCIAL_NETWORK"]</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,31 +26,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["HOME"]</a>
                         </li>
                         @if (session.IsAdmin)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="List">Users</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="List">@Localizer["USERS"]</a>
                             </li>
                         }
                         @if (session.IsLoggedIn)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Friends" asp-action="Index">Friends</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Friends" asp-action="Index">@Localizer["FRIENDS"]</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-0">
                         @if (!session.IsLoggedIn)
                         {
                             <li class="nav-item">
                                 <form class="nav-link text-dark" method="post" asp-area="" asp-controller="Login" asp-action="Index">
-                                    <input name="login" placeholder="Enter your login..." required/>
-                                    <button style="background: none; border: none" type="submit">Login</button>
+                                    <input name="login" placeholder="@Localizer["ENTER_LOGIN"]" required />
+                                    <button style="background: none; border: none" type="submit">@Localizer["LOGIN"]</button>
                                 </form>
                             </li>
                         }
@@ -56,7 +56,7 @@
                             <li class="navbar-text">@session.CurrentUser!.Login</li>
                             <li class="nav-item">
                                 <form class="nav-link text-dark" method="post" asp-area="" asp-controller="Login" asp-action="Logout">
-                                    <button style="background: none; border: none" type="submit">Logout</button>
+                                    <button style="background: none; border: none" type="submit">@Localizer["LOGOUT"]</button>
                                 </form>
                             </li>
                         }
@@ -73,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - @Localizer["SOCIAL_NETWORK"] - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["PRIVACY"]</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

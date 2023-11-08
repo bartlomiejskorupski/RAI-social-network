@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using WebApp.Data;
 using WebApp.Services;
 
@@ -34,6 +36,11 @@ public class Program
         builder.Services.AddScoped<SessionService>();
         builder.Services.AddHttpContextAccessor();
 
+        builder.Services.AddLocalization();
+        builder.Services.AddMvc()
+            .AddDataAnnotationsLocalization()
+            .AddViewLocalization(options => options.ResourcesPath = "Resources");
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -62,6 +69,14 @@ public class Program
         app.MapRazorPages();
 
         app.UseSession();
+
+        var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("pl"), new CultureInfo("en-US"), new CultureInfo("en") };
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("pl"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        });
 
         app.Run();
     }

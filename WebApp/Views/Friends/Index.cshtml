@@ -1,5 +1,8 @@
-﻿
-<h5 class="mb-0">Add Friend</h5>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+<h5 class="mb-0">@Localizer["ADD_FRIEND"]</h5>
 <div class="row">
     <div class="col-4">
         <form class="">
@@ -8,7 +11,7 @@
                 <input id="loginInput" name="login" class="form-control" required />
             </div>
             <div class="form-group">
-                <button id="addFriendButton" class="btn btn-primary" type="button">Add</button>
+                <button id="addFriendButton" class="btn btn-primary" type="button">@Localizer["ADD"]</button>
             </div>
         </form>
     </div>
@@ -16,31 +19,33 @@
 
 <div class="row mt-4">
     <div class="col-12 col-md-6 col-lg-4">
-        <h5>Import Friends List</h5>
+        <h5>@Localizer["IMPORT_FRIENDS_LIST"]</h5>
         <form asp-controller="Friends" asp-action="Import" method="post" enctype="multipart/form-data">
-            <label for="importFile">Select a file:</label>
+            <label for="importFile">@Localizer["SELECT_FILE"]</label>
             <input type="file" id="importFile" name="importFile" required>
-            <button type="submit" class="btn btn-primary">Import</button>
+            <button type="submit" class="btn btn-primary">@Localizer["IMPORT"]</button>
         </form>
     </div>
     <div class="col-12 col-md-6 col-lg-4">
-        <h5>Export Friends List</h5>
+        <h5>@Localizer["EXPORT_FRIENDS_LIST"]</h5>
         <form asp-controller="Friends" asp-action="Export" method="get">
-            <button type="submit" class="btn btn-primary">Export</button>
+            <button type="submit" class="btn btn-primary">@Localizer["EXPORT"]</button>
         </form>
     </div>
 </div>
 
-<h4 class="mt-4">Friends List</h4>
+<h4 class="mt-4">@Localizer["FRIENDS_LIST"]</h4>
 <table class="table">
     <thead>
         <tr>
-            <th>Login</th>
-            <th>Actions</th>
+            <th>@Localizer["LOGIN"]</th>
+            <th>@Localizer["ACTIONS"]</th>
         </tr>
     </thead>
     <tbody id="userTableBody">
     </tbody>
 </table>
+
+<button id="deleteBtnTemplate" class="d-none">@Localizer["DELETE"]</button>
 
 <script src="js/friends.js"></script>
