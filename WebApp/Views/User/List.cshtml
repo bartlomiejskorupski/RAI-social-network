@@ -28,7 +28,10 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                @Html.ActionLink(Localizer["DELETE"].Value, "Del", new { login = item.Login })
+                @if(item.Login != "admin")
+                {
+                    @Html.ActionLink(Localizer["DELETE"].Value, "Del", new { login = item.Login })
+                }
             </td>
         </tr>
 }

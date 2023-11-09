@@ -18,6 +18,7 @@ public class HomeController : Controller
         _session = session;
     }
 
+    // GET: Home
     public IActionResult Index()
     {
         if(_session.CurrentUser != null)
@@ -25,8 +26,20 @@ public class HomeController : Controller
         return View();
     }
 
+    // GET: Home/Privacy
     public IActionResult Privacy()
     {
+        return View();
+    }
+
+    // GET: Home/Status?code={0}
+    public IActionResult Status(int code)
+    {
+        ViewBag.Code = code;
+        if(code == 404)
+        {
+            ViewBag.Status = "PAGE_NOT_FOUND";
+        }
         return View();
     }
 

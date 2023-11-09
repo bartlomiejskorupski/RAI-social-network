@@ -61,15 +61,11 @@ namespace WebApp.Controllers
             if(!_session.IsLoggedIn) 
                 return Json(false);
 
-            var friend = UserStore.Instance.GetUserByLogin(login);
-            if (friend == null)
-                return Json(false);
-
             var user = _session.CurrentUser!;
-            if(!user.Friends.Contains(friend.Login))
+            if(!user.Friends.Contains(login))
                 return Json(false);
 
-            user.Friends.Remove(friend.Login);
+            user.Friends.Remove(login);
             return Json(true);
         }
 

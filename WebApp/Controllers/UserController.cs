@@ -58,7 +58,9 @@ public class UserController : Controller
         if (!_session.IsAdmin)
             return RedirectToAction("Index", "Home");
 
-        UserStore.Instance.RemoveUserByLogin(login);
+        if(!"admin".Equals(login))
+            UserStore.Instance.RemoveUserByLogin(login);
+
         return RedirectToAction("List");
     }
 

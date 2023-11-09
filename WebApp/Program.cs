@@ -56,6 +56,8 @@ public class Program
             app.UseHsts();
         }
 
+        app.UseStatusCodePagesWithReExecute("/Home/Status", "?code={0}");
+
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
